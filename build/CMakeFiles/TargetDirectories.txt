@@ -1,0 +1,3 @@
+/Users/colef/flickinger_cole.assigmment-1.10/build/CMakeFiles/hello_window.dir
+/Users/colef/flickinger_cole.assigmment-1.10/build/CMakeFiles/edit_cache.dir
+/Users/colef/flickinger_cole.assigmment-1.10/build/CMakeFiles/rebuild_cache.dir

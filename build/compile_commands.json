@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/Users/colef/flickinger_cole.assigmment-1.10/build",
+  "command": "/usr/bin/clang++  -I/Users/colef/flickinger_cole.assigmment-1.10/lib -isystem /opt/homebrew/include -g -arch arm64 -o CMakeFiles/hello_window.dir/src/main.cpp.o -c /Users/colef/flickinger_cole.assigmment-1.10/src/main.cpp",
+  "file": "/Users/colef/flickinger_cole.assigmment-1.10/src/main.cpp",
+  "output": "CMakeFiles/hello_window.dir/src/main.cpp.o"
+}
+]
