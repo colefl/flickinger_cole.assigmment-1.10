@@ -9,6 +9,8 @@ add_executable(hello_window
  src/glad.c
  src/triangle_mesh.cpp
  src/triangle_mesh.h
+ src/circle.cpp
+ src/circle.h
 )
 
 find_package(glfw3 3.3 REQUIRED)

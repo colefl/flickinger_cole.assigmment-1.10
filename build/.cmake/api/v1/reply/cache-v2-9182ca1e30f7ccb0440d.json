@@ -1342,6 +1342,18 @@
 			"value" : "/opt/homebrew/lib/cmake/glfw3"
 		},
 		{
+			"name" : "glm_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "The directory containing a CMake configuration file for glm."
+				}
+			],
+			"type" : "PATH",
+			"value" : "glm_DIR-NOTFOUND"
+		},
+		{
 			"name" : "hello_window_BINARY_DIR",
 			"properties" : 
 			[

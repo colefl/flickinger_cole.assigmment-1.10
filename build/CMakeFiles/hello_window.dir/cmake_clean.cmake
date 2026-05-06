@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/hello_window.dir/src/circle.cpp.o"
+  "CMakeFiles/hello_window.dir/src/circle.cpp.o.d"
   "CMakeFiles/hello_window.dir/src/glad.c.o"
   "CMakeFiles/hello_window.dir/src/glad.c.o.d"
   "CMakeFiles/hello_window.dir/src/main.cpp.o"

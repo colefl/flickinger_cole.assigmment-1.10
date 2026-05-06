@@ -248,6 +248,9 @@ OPENGL_glu_LIBRARY:FILEPATH=/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/
 //The directory containing a CMake configuration file for glfw3.
 glfw3_DIR:PATH=/opt/homebrew/lib/cmake/glfw3
 
+//The directory containing a CMake configuration file for glm.
+glm_DIR:PATH=glm_DIR-NOTFOUND
+
 //Value Computed by CMake
 hello_window_BINARY_DIR:STATIC=/Users/colef/flickinger_cole.assigmment-1.10/build
 
