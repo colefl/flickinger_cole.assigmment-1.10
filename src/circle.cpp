@@ -23,7 +23,7 @@ Circle::Circle(float cx, float cy, float radius, int segments, float mass)
 
     vertex_count = segments + 2; // center + ring + closing point
 
-    mass = 1.0f;
+    //mass = 1.0f;
 
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
@@ -51,10 +51,10 @@ void Circle::update(float dt, float ax, float ay) {
     //return x;
 
 //Hardcoded in gravity for testin purposes
-    // if (y - radius < 0.0f)          { y = radius;       vy = -vy * 0.8f; }
-    // if (y + radius > 480.0f)        { y = 480.0f-radius; vy = -vy * 0.8f; }
-    // if (x - radius < 0.0f)          { x = radius;       vx = -vx * 0.8f; }
-    // if (x + radius > 640.0f)        { x = 640.0f-radius; vx = -vx * 0.8f; }
+    if (y - radius < 0.0f)          { y = radius;       vy = -vy * 0.8f; }
+    if (y + radius > 480.0f)        { y = 480.0f-radius; vy = -vy * 0.8f; }
+    if (x - radius < 0.0f)          { x = radius;       vx = -vx * 0.8f; }
+    if (x + radius > 640.0f)        { x = 640.0f-radius; vx = -vx * 0.8f; }
 }
 
 Circle::~Circle() {
