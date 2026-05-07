@@ -1,0 +1,41 @@
+04/28/2026, 1:06pm
+This is the initial start of the project, going to focus on just learning the basics of OpenGL so for the most part this will just represent when I started working.
+
+04/28/2026, 8:04pm
+I configured quite a bit like the hello_window but my shaders aren't linking for some reason and I think I just need to leave things there
+
+04/30/2026, 11:05am
+Fresh out of class and I figured out that the parameters in my txt shader and fragment files were screwed up. Additionally, I needed to download more files for glad
+and such.
+
+05/01/2026, 3:05pm
+I have a rainbow on my screen now, I am getting scared though for drawing a circle though because I fear it may mean that I must write out every single vertex and how
+they connect.
+
+05/01/2026, 5:14pm
+Well now the triangle covers the whole screen, I'm going to start working towards figuring out circles
+
+05/06/2026, 3:45pm
+I fully was doing things wrong on so many levels in terms of how my rendering and such was. Additionally, I learned a bit about having an orthnographic system
+for my window which has made things much more similar to java swing which is what I'm used to.
+
+05/06/2026, ~8:00pm
+I found lots of examples for triangle fan circles but all of them were deprecated to it took me an obscenely long time to find the APIs for the proper up to date
+solution. It's almost like OpenGL is for 3d graphics. Anywho I still have energy and not much time so I will start plugging into gravity(?)
+
+05/07/2026 1:37am
+My brain is starting to turn to mush but I think it's kind of working with gravity? I did not realize that I had to multiply the velocities by the change in time
+twice but after reviewing notes it makes sense since usually I have to take the derivative twice from the acceleration to find the X. I will work towards having
+multiple objects in the morning
+
+05/07/2026 10:42am
+Getting multiple wasn't so bad, but now I must start in on elastic collision. I found some organic chemistry tutor videos and a few pages, not to mention some stack
+overflow articles.
+
+05/07/2026 3:08pm
+I now have finished up the implementation of the elastic collisions after an excutiating amount of time. I did not follow those equations very well at first which
+made things bounce but not very organically.
+
+05/07/2026 4:05pm
+I have finished up cleaning up a lot of my cout's and such, plus I messed around with the color and changing it according to different variables. Additionally, I've
+made it so one can use the command line for parameters.

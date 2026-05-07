@@ -20,15 +20,6 @@ int main(int argc, char* argv[]){
     const float WORLD_WIDTH  = 640.0f;
     const float WORLD_HEIGHT = 480.0f;
 
-    // std::ifstream file;
-
-    // std::string line;
-
-    // file.open("../src/shaders/vertex.txt");
-    // while(std::getline(file, line)){
-    //     std::cout << line << std::endl;
-    // }
-
     srand(time(NULL));
 
     GLFWwindow* window;
@@ -52,16 +43,8 @@ int main(int argc, char* argv[]){
         return -1;
     }
 
-    //glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
-
-
-    // int w,h;
-    // glfwGetFramebufferSize(window, &w, &h);
-    // glViewport(0, 0, w, h);
-
-    //std::cout << "Hello I make it before triangle" << std::endl;
 
     //TriangleMesh* triangle = new TriangleMesh();
     float lastTime = glfwGetTime();
@@ -70,7 +53,7 @@ int main(int argc, char* argv[]){
     int avg_mass;
 
     if(argc != 4){
-        num_of_objs = 100;
+        num_of_objs = 10;
         avg_radius = 1;
         avg_mass = 1;
     } else {
@@ -82,11 +65,6 @@ int main(int argc, char* argv[]){
 
     std::vector<Circle*> objs = populateCircles(num_of_objs, avg_radius, avg_mass);
 
-    //Circle* circle = new Circle(120.0f, 120.0f, 60.0f, 30);
-
-    //std::cout << "Hello I make it after triangle" << std::endl;
-    
-    //float aspect = (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT;
 
     unsigned int shader = make_shader(
         "../src/shaders/vertex.txt",
@@ -97,7 +75,7 @@ int main(int argc, char* argv[]){
     setOrtho(shader, 0.0f, WORLD_WIDTH, 0.0f, WORLD_HEIGHT);
 
 
-    float gravity = 40000.0f;
+    float gravity = 4000.0f;
     int obj_idx;
 
     //int x = 0; //Debug to cancel after one iteration
@@ -110,17 +88,6 @@ int main(int argc, char* argv[]){
         glfwPollEvents();
         glClear(GL_COLOR_BUFFER_BIT);
 
-        // for(j = 0; j < num_of_objs; j++){
-        //     objs[j]->update(dt);
-        //     // Pass position offset and color as uniforms
-        //     int offsetLoc = glGetUniformLocation(shader, "offset");
-        //     glUniform2f(offsetLoc, objs[j]->x, objs[j]->y);
-
-        //     int colorLoc = glGetUniformLocation(shader, "color");
-        //     glUniform3f(colorLoc, 1.0f, 0.3f, 0.1f); //orange-ish
-        // }
-        //circle->update(dt);
-
         std::vector<float> accl_x(num_of_objs, 0.0f);
         std::vector<float> accl_y(num_of_objs, 0.0f);
     
@@ -128,21 +95,13 @@ int main(int argc, char* argv[]){
             //int obj_idx;
             for(obj_idx = j + 1; obj_idx < num_of_objs; obj_idx++){
 
-                float dx = objs[obj_idx]->x - objs[j]->x; // direction FROM i TO k
+                float dx = objs[obj_idx]->x - objs[j]->x; // direction FROM obj_idx to j
                 float dy = objs[obj_idx]->y - objs[j]->y;
-                float dist = sqrt(dx*dx + dy*dy) + 25.0f; // softening
+                float dist = sqrt(dx*dx + dy*dy) + 25.0f; // softening for gravity purposes
                 float reg_dist = dist - 25.0f; // dist without 25.0f
                 if(std::abs(dist) < (objs[j]->radius + objs[obj_idx]->radius) + 25.0f){
-                    //Need to calculate angle based on the change in x and y of both object
                     //double theta1 = acos((double)dx / hypot((double)dx, (double)dy)); //We have the hypotenuse of the dx / hypotenuse of the first one
                     //https://stackoverflow.com/questions/345838/ball-to-ball-collision-detection-and-handling
-
-                    // float overlap = (objs[j]->radius + objs[obj_idx]->radius) - dist;
-                    // objs[j]->x -= (dx / dist) * overlap * 0.5f;
-                    // objs[j]->y -= (dy / dist) * overlap * 0.5f;
-                    // objs[obj_idx]->x += (dx / dist) * overlap * 0.5f;
-                    // objs[obj_idx]->y += (dy / dist) * overlap * 0.5f;
-                    // Push them apart along the collision normal
 
                     float overlap = (objs[j]->radius + objs[obj_idx]->radius) - reg_dist;
                     objs[j]->x -= (dx / reg_dist) * overlap * 0.5f;
@@ -169,12 +128,6 @@ int main(int argc, char* argv[]){
                     accl_x[obj_idx] = 0.0f;
                     accl_y[obj_idx] = 0.0f;
 
-                    //accl_x[j] = 0; //v_objs[0] / objs[j]->mass;
-                    //accl_y[j] = 0; //v_objs[1] / objs[j]->mass;
-                    //accl_x[obj_idx] = 0; //v_objs[2] / objs[obj_idx]->mass;
-                    //accl_y[obj_idx] = 0; //v_objs[3] / objs[obj_idx]->mass;
-                    //std::cout << "I make it in here" << std::endl;
-
                 } else {
                     float force  = gravity * (objs[obj_idx]->mass * objs[j]->mass) / (dist * dist);
                     //std::cout << force << std::endl;
@@ -187,21 +140,15 @@ int main(int argc, char* argv[]){
 
                     //std::cout << "fx: " << fx << " and fy: " << fy << std::endl;
 
-                    //Object 1
+                    //Objects
                     accl_x[obj_idx] -= fx / objs[obj_idx]->mass;
                     accl_y[obj_idx] -= fy / objs[obj_idx]->mass;
 
 
-                    //Object 2
+                    //Object being looked at
                     accl_x[j] += fx / objs[j]->mass;
                     accl_y[j] += fy / objs[j]->mass;
                 }
-
-                // float overlap = (objs[j]->radius + objs[obj_idx]->radius) - dist;
-                // objs[j]->x -= (dx / dist) * overlap * 0.5f;
-                // objs[j]->y -= (dy / dist) * overlap * 0.5f;
-                // objs[obj_idx]->x += (dx / dist) * overlap * 0.5f;
-                // objs[obj_idx]->y += (dy / dist) * overlap * 0.5f;
 
                 //std::cout << j << " Accl_x: " << accl_x[j] << " and Accl_y: " << accl_y[j] << " and dt: " << dt << "\n" << std::endl;
             }
@@ -222,13 +169,26 @@ int main(int argc, char* argv[]){
             glUniform2f(offsetLoc, objs[j]->x, objs[j]->y);
 
             int colorLoc = glGetUniformLocation(shader, "color");
+
+            //Some fun stuff to do with the colors
+            
+            //Changes color based on direction
             //glUniform3f(colorLoc, (abs((int)(accl_x[j]) * 0.05)), (abs((int)(accl_y[j]) * 0.05)), 0.0f);
+
+            //White
             glUniform3f(colorLoc, 1.0f, 1.0f, 1.0f);
+
+            //Changes color based on velocity
+            //glUniform3f(colorLoc, 1.0f - 0.5f * log10(abs((int)objs[j]->vx) + abs((int)objs[j]->vy)), 1.0f - 0.5f * log10(abs((int)objs[j]->vx) + abs((int)objs[j]->vy)), 1.0f);
+            //std::cout << log10(abs(((int)(accl_x[j]) + (int)(accl_y[j])/2))) << std::endl;
+            
 
             objs[j]->draw();
         }
 
         glfwSwapBuffers(window);
+    
+        //x++;
     }
 	
     glDeleteProgram(shader);
@@ -325,11 +285,24 @@ std::vector<Circle*> populateCircles(int num_of_objs, int avg_radius, int avg_ma
     int rand_num = rand();
     std::vector<Circle*> tmp;
     //Circle* tmp_crlc;
-    int i;
-    for(i = 0; i < num_of_objs; i++){
+    //int i;
+    // for(i = 0; i < num_of_objs; i++){
+    //     tmp.push_back(new Circle((float)(rand_num % SCREEN_WIDTH), (float)(rand_num % SCREEN_HEIGHT),(float)(avg_radius * (3 + rand_num % 5)), 30, (float)((avg_mass + rand_num % 3))));
+    //     rand_num = rand();
+    //     std::cout << "rand_num " << rand_num % SCREEN_HEIGHT << std::endl;
+    // }
+    //tmp.push_back(new Circle((float)(rand_num % SCREEN_WIDTH), (float)(rand_num % SCREEN_HEIGHT),(float)(avg_radius * (3 + rand_num % 5)), 30, (float)((avg_mass + rand_num % 3))));
+
+    while((int)tmp.size() < num_of_objs){
+        size_t h;
+        for(h = 0; h < tmp.size(); h++){
+            if(rand_num % SCREEN_WIDTH == tmp[h]->x && rand_num % SCREEN_HEIGHT == tmp[h]->y){
+                rand_num = rand();
+                break;
+            }
+        }
         tmp.push_back(new Circle((float)(rand_num % SCREEN_WIDTH), (float)(rand_num % SCREEN_HEIGHT),(float)(avg_radius * (3 + rand_num % 5)), 30, (float)((avg_mass + rand_num % 3))));
         rand_num = rand();
-        //std::cout << "rand_num " << rand_num << std::endl;
     }
 
     // while(i < num_of_objs){

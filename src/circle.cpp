@@ -13,7 +13,7 @@ Circle::Circle(float cx, float cy, float radius, int segments, float mass)
     vertices.push_back(0.0);
     vertices.push_back(0.0f);
 
-    // Outer ring points
+    //Outer ring points
     for (int i = 0; i <= segments; i++) {
         float angle = 2.0f * M_PI * i / segments;
         vertices.push_back(radius * cos(angle)); //X
@@ -23,7 +23,7 @@ Circle::Circle(float cx, float cy, float radius, int segments, float mass)
 
     vertex_count = segments + 2; // center + ring + closing point
 
-    //mass = 1.0f;
+    //mass = 1.0f; //For some debug
 
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
@@ -32,7 +32,10 @@ Circle::Circle(float cx, float cy, float radius, int segments, float mass)
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), vertices.data(), GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0); //So it reads through each of the vertex attributes with an offset of 0 from location 0 which I have to distnguish in this linked txt file for some reason in order to allow my code to have lots of shader options like color and verticies and such
+    //So it reads through each of the vertex attributes with an offset of 0 from location 0 which I 
+    //have to distnguish in this linked txt file for some reason in order to allow my code to have 
+    //lots of shader options like color and verticies and such
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0); 
     glEnableVertexAttribArray(0); //Allows it at location 0
 }
 
@@ -43,14 +46,14 @@ void Circle::draw() {
 
 //Getting things to move on the screen
 void Circle::update(float dt, float ax, float ay) {
-    //const float gravity = -50.0f; // world units/sec²
+    //const float gravity = -50.0f; // world units/sec for more debug
     vy += ay * dt;
     vx += ax * dt;
     x  += vx * dt;
     y  += vy * dt;
     //return x;
 
-//Hardcoded in gravity for testin purposes
+    //Makes the balls bounce on the edges
     if (y - radius < 0.0f)          { y = radius;       vy = -vy * 0.8f; }
     if (y + radius > 480.0f)        { y = 480.0f-radius; vy = -vy * 0.8f; }
     if (x - radius < 0.0f)          { x = radius;       vx = -vx * 0.8f; }
