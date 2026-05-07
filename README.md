@@ -8,9 +8,18 @@ The collision is elastic in nature which means it bounces accurately to how two 
 air friction and they were in an enclosed space.
 
 How to Run This:
-If in VSCode, look towards the bottom left for the build button. Then click the play button inside the terminal, cd into the build and enter './hello_window'.
-The second option will be your best bet if you would like to add your own parameters. which are as follows, inside of the call in the command line enter
-as the following: "./hello_window <number of balls> <minimum radius of the balls> <minimum mass of the balls> "
+If in VSCode, look towards the bottom left for the build button, click that. Then click the play button. If you'd rather use terminal, inside the terminal, type
+
+"cmake --build build"
+
+cd into the build and enter
+
+'./hello_window'
+
+The second option will be your best bet if you would like to add your own parameters. which are as follows,
+
+inside of the call in the command line enter the following:
+"./hello_window <number of balls> <minimum radius of the balls> <minimum mass of the balls> " without the parenthesis
 
 I've found that my half decade old macbook can run up to 1000 balls with radii ~1 and mass ~1 pretty smoothly so if you can get it to work for yours thats sweet.
 
@@ -33,3 +42,5 @@ That was a lot so I will cite the source I used for this: https://www.vobarian.c
 to input the velocities into the 1D equation and not the positions.
 
 Additionally, this is my first attempt at using OpenGL ever so the rendering may be incorrect accordingly with what I was attempting.
+
+BUGS: When running in

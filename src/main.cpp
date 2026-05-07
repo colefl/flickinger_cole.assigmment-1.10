@@ -54,8 +54,8 @@ int main(int argc, char* argv[]){
 
     if(argc != 4){
         num_of_objs = 10;
-        avg_radius = 1;
-        avg_mass = 1;
+        avg_radius = 5;
+        avg_mass = 3;
     } else {
         num_of_objs = (int)atof(argv[1]);
         avg_radius = (int)atof(argv[2]);
